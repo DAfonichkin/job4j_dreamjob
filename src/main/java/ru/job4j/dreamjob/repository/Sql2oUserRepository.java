@@ -34,6 +34,8 @@ public class Sql2oUserRepository implements UserRepository {
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
             rsl = Optional.of(user);
+        } catch (Exception e) {
+
         }
         return rsl;
     }
