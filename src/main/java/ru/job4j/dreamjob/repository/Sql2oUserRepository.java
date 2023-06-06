@@ -9,6 +9,8 @@ import ru.job4j.dreamjob.model.Vacancy;
 import java.util.Collection;
 import java.util.Optional;
 
+import static java.util.Optional.empty;
+
 @Repository
 public class Sql2oUserRepository implements UserRepository {
 
@@ -20,6 +22,7 @@ public class Sql2oUserRepository implements UserRepository {
 
     @Override
     public Optional<User> save(User user) {
+        Optional<User> rsl = Optional.empty();
         try (var connection = sql2o.open()) {
             var sql = """
                     INSERT INTO users(email, password)
@@ -30,10 +33,9 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("password", user.getPassword());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
-            return Optional.ofNullable(user);
-        } catch (Exception e) {
-            return Optional.empty();
+            rsl = Optional.of(user);
         }
+        return rsl;
     }
 
     @Override
