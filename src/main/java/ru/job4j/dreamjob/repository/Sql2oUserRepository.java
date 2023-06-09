@@ -25,12 +25,13 @@ public class Sql2oUserRepository implements UserRepository {
         Optional<User> rsl = Optional.empty();
         try (var connection = sql2o.open()) {
             var sql = """
-                    INSERT INTO users(email, password)
-                    VALUES (:email, :password)
+                    INSERT INTO users(email, password, name)
+                    VALUES (:email, :password, :name)
                     """;
             var query = connection.createQuery(sql, true)
                     .addParameter("email", user.getEmail())
-                    .addParameter("password", user.getPassword());
+                    .addParameter("password", user.getPassword())
+                    .addParameter("name", user.getPassword());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
             rsl = Optional.of(user);
