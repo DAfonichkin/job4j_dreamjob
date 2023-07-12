@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("login")
-    public String getLoginPage(Model model, HttpSession session) {
+    public String getLoginPage() {
         return "users/login";
     }
 

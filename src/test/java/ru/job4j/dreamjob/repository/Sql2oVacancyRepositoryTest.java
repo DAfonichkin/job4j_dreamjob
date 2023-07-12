@@ -78,7 +78,7 @@ public class Sql2oVacancyRepositoryTest {
     }
 
     @Test
-    public void whenDontSaveThenNothingFound() {
+    public void whenNotSaveThenNothingFound() {
         assertThat(sql2oVacancyRepository.findAll()).isEqualTo(emptyList());
         assertThat(sql2oVacancyRepository.findById(0)).isEqualTo(empty());
     }
